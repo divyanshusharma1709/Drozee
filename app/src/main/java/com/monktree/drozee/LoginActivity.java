@@ -46,13 +46,14 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameET.getText().toString();
-                String password = passwordET.getText().toString();
+                String username = usernameET.getText().toString().trim();
+                String password = passwordET.getText().toString().trim();
                 Boolean valid = verifyCred(username,password);
                 if(valid)
                 {
                     Toast.makeText(getApplicationContext(),"Login Successful for User: " + username + " with Password: " + password,Toast.LENGTH_SHORT).show();
                     //Goto next activity
+                    startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
 
                 }
 
@@ -61,6 +62,15 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean verifyCred(String uname, String pass)
     {
+        if(uname.equals("")) {
+            Toast.makeText(getApplicationContext(), "Please enter a username", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(pass.equals(""))
+        {
+            Toast.makeText(getApplicationContext(), "Please enter a password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         //Credentials Checking
         return true; //For Now
     }
